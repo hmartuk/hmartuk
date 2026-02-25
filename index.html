@@ -3,50 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H-Mart 실시간 주간 특가</title>
+    <title>H Mart Weekly SALE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
     <style>
-        :root { --main-blue: #00529b; --main-red: #ed1c24; --main-yellow: #fff200; }
-        body { font-family: 'Arial', sans-serif; margin: 0; background-color: #f8f9fa; }
+
+        :root { --main-blue: #00529b; --main-red: #ed1c24; --main-yellow: #fffa62; }
+        body { background:linear-gradient(180deg, #85b1f0, #e5edfa); font-family: 'Suit', 'Arial', sans-serif; color: #000; margin: 0;}
         
         /* 헤더 스타일 */
-        .header { background: var(--main-blue); color: var(--main-yellow); text-align: center; padding: 20px; font-weight: bold; }
-        .header h1 { margin: 0; font-size: 2.5rem; text-transform: uppercase; }
+        .header { display: block; width: 90vw; max-width: 1200px; color: #000; font-weight: 600; text-align: center; margin: 0 auto 5rem;}
+        .header .logo_duration { 
+    width: 100%; 
+    display: flex; 
+    justify-content: space-between;
+}
+        .header .weekly_tit { display:block; width: 80%; text-align: center; margin: 0 auto; }
+        .duration { font-size: 0.75rem; text-align: right; }
+
+        .flyer-container { width: 90%; max-width: 1200px; position: relative;}
+
+        .product-container { width: 100%; position: relative;}
 
         /* 카테고리 섹션 */
-        .category-section { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
-        .category-title { background: var(--main-yellow); color: var(--main-blue); padding: 10px 20px; font-size: 1.5rem; font-weight: bold; border-radius: 10px 10px 0 0; display: inline-block; }
-        
+        .category-section { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .category-title { 
+            width: fit-content; height: 120px;
+            display: block; z-index: -1; position: absolute; top: calc(-1.25rem - 20px); left: 0px;
+            background: var(--main-blue); color: var(--main-yellow); padding: 8px 20px; font-size: 1.25rem; font-weight: bold; border-radius: 16px;  }
+     
         /* 상품 그리드 */
         .product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-            gap: 15px; background: white; border: 3px solid var(--main-yellow); 
-            padding: 20px; margin-bottom: 40px; border-radius: 0 10px 10px 10px;
+            display: grid;
+            grid-template-columns: 50% auto; 
+            gap: 15px; background: #f9f9f9;
+            padding: calc(-1.25rem - 20px) 0 0; margin-bottom: 100px; border-radius: 16px;
         }
 
         /* 상품 카드 */
-        .card { border: 1px solid #eee; padding: 15px; position: relative; text-align: center; display: flex; flex-direction: column; }
-        .discount-tag { position: absolute; top: 0; right: 0; background: var(--main-red); color: white; padding: 5px 10px; font-weight: bold; border-radius: 0 0 0 10px; font-size: 1.2rem; }
+        .card { padding: 12px; position: relative; text-align: center; display: flex; flex-direction: column; }
+        .en-product-name { font-size: 1.25rem; font-weight: 700;}
+        .ko-product-name { font-size: 1rem; font-weight: 400; margin-top: 0.25rem;}
+        .weight { color : #666; font-size: 0.75rem; margin-top: 0.5rem;}
+
+        /* 할인율 딱지 */
+        .discount-tag { 
+            position: absolute;
+            top: 12px; right: 12px;
+            display: flex; align-items: center; gap: 1px; 
+            background: var(--main-yellow); padding: 2px 8px; border-radius: 4px; 
+            font-size: 1.75rem; font-weight: 800; 
+            box-shadow: 0 1px 2px #33333388; }
+        .discount-tag-per-off { font-size: 1.2rem; text-align: left; }
+        .per, .off { margin: 0;}
+        .per { font-size: 1rem; margin-bottom: -2px;}
+        .off { font-size: 0.5rem;}
         .product-img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; }
-        .product-name { font-size: 0.95rem; font-weight: bold; color: #333; margin: 10px 0; height: 40px; overflow: hidden; }
-        .price { color: var(--main-red); font-size: 1.8rem; font-weight: bold; }
-        .price::before { content: '£'; font-size: 1rem; vertical-align: top; }
+        .price { color: var(--main-red); font-size: 1.8rem; font-weight: bold; margin-top: 0.5rem;}
+
+        /* 유의사항 */
+        .notice {
+            width: 90%;
+            max-width: 1200px;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        /* Media Screen */
+        @media screen and (min-width: 960px) {
+            .category-title {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 2fr));
+            }
+            
+            
+        .discount-tag { 
+            background: var(--main-yellow); padding: 2px 8px; border-radius: 10px; 
+            font-size: 2.3rem; }
+        }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <p>Weekly SALE</p>
-    <h1>H Mart 주간 특가</h1>
+    <div class="logo_duration">
+    <img src="https://hmart.co.uk/shop/img/logo-1659445973.jpg" alt="H Mart Logo" class="logo">
+    <p class="duration"></p> 
+</div>
+    <img src="weekly_tit.png" class="weekly_tit" alt="Weekly SALE">
 </div>
 
 <div id="flyer-container" class="category-section">
-    <p style="text-align: center;">데이터를 불러오는 중...</p>
+    <p style="text-align: center;">세일 정보 도착 중...</p>
+</div>
+
+<div class="notice">
+    <p>While Stock last<br>The promotion may be modified or terminated early depending on circumstances.</p>
+    <p>프로모션은 당사 및 매장 사정에 따라  사전 고지 없이 내용이 변경되거나 조기 종료될 수 있으며, 준비된 물량(예산) 소진 시 예고 없이 마감될 수 있습니다. </p>
 </div>
 
 <script>
-    // 1. 여기에 게시한 구글 시트 CSV URL을 넣으세요
     const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQW5ts53gZDc6HzI3nuu64bijJLmI1YryKhpcIZhFM2DevkWQ7Q9JEjYJ4xeWcVuLIkReZdIwRFkg6H/pub?gid=0&single=true&output=csv';
 
     async function initFlyer() {
@@ -57,7 +116,8 @@
             Papa.parse(csvText, {
                 header: true,
                 complete: (results) => {
-                    renderByGroup(results.data);
+                    // 여기서 모든 걸 한 번에 처리합니다!
+                    renderPage(results.data);
                 }
             });
         } catch (error) {
@@ -66,9 +126,16 @@
         }
     }
 
-    function renderByGroup(data) {
+    function renderPage(data) {
+        // --- 1. 날짜(Duration) 업데이트 부분 ---
+        const durationDisplay = document.querySelector('.duration');
+        if (data.length > 0 && data[0].duration) {
+            durationDisplay.innerHTML = `${data[0].duration}<br>While Stock last`;
+        }
+
+        // --- 2. 상품 영역 업데이트 부분 ---
         const container = document.getElementById('flyer-container');
-        container.innerHTML = '';
+        container.innerHTML = ''; // 로딩 문구 지우기
 
         // 카테고리별로 데이터 묶기
         const groups = data.reduce((acc, item) => {
@@ -78,25 +145,30 @@
             return acc;
         }, {});
 
-        // 각 카테고리별로 화면에 그리기
+        // 각 카테고리별로 반복해서 화면에 그리기
         for (const [category, products] of Object.entries(groups)) {
             let categoryHtml = `
-                <div class="category-title">${category}</div>
-                <div class="product-grid">
-                    ${products.map(p => `
-                        <div class="card">
-                            ${p.discount ? `<div class="discount-tag">${p.discount} OFF</div>` : ''}
-                            <img class="product-img" src="${p.img_url}" onerror="this.src='https://via.placeholder.com/200x200?text=No+Image'">
-                            <div class="product-name">${p.name}</div>
-                            <div class="price">${p.price}</div>
-                        </div>
-                    `).join('')}
+                <div class="product-container">
+                    <div class="category-title">${category}</div>
+                    <div class="product-grid">
+                        ${products.map(p => `
+                            <div class="card">
+                                ${p.discount ? `<div class="discount-tag">${p.discount}<div class="discount-tag-per-off"><p class="per">%</p><p class="off">OFF</p></div></div>` : ''}
+                                <img class="product-img" src="${p.img_url}" onerror="this.src='https://via.placeholder.com/200x200?text=No+Image'">
+                                <div class="en-product-name">${p.en_name}</div>
+                                <div class="ko-product-name">${p.ko_name}</div>
+                                <div class="weight">${p.weight}</div>
+                                <div class="price">${p.price}</div>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
             container.innerHTML += categoryHtml;
         }
     }
 
+    // 페이지 시작!
     initFlyer();
 </script>
 
