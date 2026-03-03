@@ -35,27 +35,26 @@
             background: var(--main-blue); color: var(--main-yellow); padding: 8px 20px; font-size: 1.25rem; font-weight: bold; border-radius: 16px;  }
      
         /* 상품 그리드 */.product-grid {
-    display: grid !important; /* 다른 설정이 방해하지 못하게 강제 */
-    grid-template-columns: repeat(2, 1fr); /* 1fr 1fr 대신 더 명확한 문법 사용 */
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     background: #f9f9f9;
     margin-bottom: 100px;
     border-radius: 16px;
     
-    /* 너비 계산의 핵심 */
     width: 100%;
-    max-width: 100%; /* 절대 부모를 넘지 못하게 차단 */
+    max-width: 100%; 
     box-sizing: border-box;
     
-    /* 음수 패딩 대신 안전한 값으로 대체 */
+
     padding: 10px; 
-    overflow: hidden; /* 혹시라도 자식이 튀어나오면 잘라버림 */
+    overflow: hidden;
 }
 
         /* 상품 카드 */
         .card { padding: 12px; position: relative; text-align: center; display: flex; flex-direction: column; 
-    width: auto !important; /* 100% 대신 오토로 설정해서 그리드 칸에 맞춤 */
-    min-width: 0; /* 그리드 버그 방지용 */
+    width: auto !important; 
+    min-width: 0;
     box-sizing: border-box;}
         
 
@@ -194,3 +193,4 @@
 
 </body>
 </html>
+
