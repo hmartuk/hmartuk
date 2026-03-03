@@ -14,12 +14,14 @@
         /* 헤더 스타일 */
         .header { display: block; width: 90vw; max-width: 1200px; color: #000; font-weight: 600; text-align: center; margin: 0 auto 5rem;}
         .header .logo_duration { 
-    width: 100%; 
-    display: flex; 
-    justify-content: space-between;
-}
-        .header .weekly_tit { display:block; width: 80%; text-align: center; margin: 0 auto; }
-        .duration { font-size: 0.75rem; text-align: right; }
+            width: 100%; 
+            display: flex; 
+            justify-content: space-between;
+            padding: 12px 0;
+        }
+        .header .logo { width: 23vw; max-width: 200px; height: 100%; }
+        .header .duration { font-size: 0.75rem; text-align: right; margin: 0;}
+        .header .weekly_tit { display:block; width: 77%; text-align: center; margin: 0 auto; }
 
         .flyer-container { width: 90%; max-width: 1200px; position: relative;}
 
@@ -32,17 +34,32 @@
             display: block; z-index: -1; position: absolute; top: calc(-1.25rem - 20px); left: 0px;
             background: var(--main-blue); color: var(--main-yellow); padding: 8px 20px; font-size: 1.25rem; font-weight: bold; border-radius: 16px;  }
      
-        /* 상품 그리드 */
-        .product-grid { 
-            display: grid;
-            grid-template-columns: 50% auto; 
-            gap: 15px; background: #f9f9f9;
-            padding: calc(-1.25rem - 20px) 0 0; margin-bottom: 100px; border-radius: 16px;
-        }
+        /* 상품 그리드 */.product-grid {
+    display: grid !important; /* 다른 설정이 방해하지 못하게 강제 */
+    grid-template-columns: repeat(2, 1fr); /* 1fr 1fr 대신 더 명확한 문법 사용 */
+    gap: 12px;
+    background: #f9f9f9;
+    margin-bottom: 100px;
+    border-radius: 16px;
+    
+    /* 너비 계산의 핵심 */
+    width: 100%;
+    max-width: 100%; /* 절대 부모를 넘지 못하게 차단 */
+    box-sizing: border-box;
+    
+    /* 음수 패딩 대신 안전한 값으로 대체 */
+    padding: 10px; 
+    overflow: hidden; /* 혹시라도 자식이 튀어나오면 잘라버림 */
+}
 
         /* 상품 카드 */
-        .card { padding: 12px; position: relative; text-align: center; display: flex; flex-direction: column; }
-        .en-product-name { font-size: 1.25rem; font-weight: 700;}
+        .card { padding: 12px; position: relative; text-align: center; display: flex; flex-direction: column; 
+    width: auto !important; /* 100% 대신 오토로 설정해서 그리드 칸에 맞춤 */
+    min-width: 0; /* 그리드 버그 방지용 */
+    box-sizing: border-box;}
+        
+
+        .en-product-name { font-size: 1rem; font-weight: 700;}
         .ko-product-name { font-size: 1rem; font-weight: 400; margin-top: 0.25rem;}
         .weight { color : #666; font-size: 0.75rem; margin-top: 0.5rem;}
 
@@ -63,14 +80,17 @@
 
         /* 유의사항 */
         .notice {
-            width: 90%;
-            max-width: 1200px;
+            width: 90%; max-width: 1200px;
+            margin: 0 auto;
             font-size: 0.75rem;
             text-align: center;
         }
 
         /* Media Screen */
         @media screen and (min-width: 960px) {
+
+            /* header */
+            .header .duration { font-size: 1rem; }
             .category-title {
                 font-size: 2rem;
             }
@@ -90,7 +110,7 @@
 
 <div class="header">
     <div class="logo_duration">
-    <img src="https://hmart.co.uk/shop/img/logo-1659445973.jpg" alt="H Mart Logo" class="logo">
+    <img src="https://hmartuk.synology.me/assets/general/logo.jpg" alt="H Mart Logo" class="logo">
     <p class="duration"></p> 
 </div>
     <img src="weekly_tit.png" class="weekly_tit" alt="Weekly SALE">
@@ -102,7 +122,7 @@
 
 <div class="notice">
     <p>While Stock last<br>The promotion may be modified or terminated early depending on circumstances.</p>
-    <p>프로모션은 당사 및 매장 사정에 따라  사전 고지 없이 내용이 변경되거나 조기 종료될 수 있으며, 준비된 물량(예산) 소진 시 예고 없이 마감될 수 있습니다. </p>
+    <p>프로모션은 당사 및 매장 사정에 따라 사전 고지 없이 내용이 변경되거나 조기 종료될 수 있으며, 준비된 물량(예산) 소진 시 예고 없이 마감될 수 있습니다.</p>
 </div>
 
 <script>
