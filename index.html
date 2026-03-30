@@ -8,8 +8,8 @@
     <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
     <style>
 
-        :root { --main-blue: #00529b; --main-red: #ed1c24; --main-yellow: #fffa62; }
-        body { background:linear-gradient(180deg, #85b1f0, #e5edfa); font-family: 'Suit', 'Arial', sans-serif; color: #000; margin: 0;}
+        :root { --main-blue: #00529b; --main-red: #ff4e00; --main-yellow: #fffa62; }
+        body { background:linear-gradient(180deg, #85b1f0, #e5edfa), #e5edfa; font-family: 'Suit', 'Arial', sans-serif; color: #000; margin: 0;}
         
         /* 헤더 스타일 */
         .header { display: block; width: 90vw; max-width: 1200px; color: #000; font-weight: 600; text-align: center; margin: 0 auto 5rem;}
@@ -17,16 +17,27 @@
             width: 100%; 
             display: flex; 
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 24px 0 12px;
         }
         .header .logo { width: 23vw; max-width: 200px; height: 100%; }
-        .header .duration { font-size: 0.75rem; text-align: right; margin: 0;}
+        .header .duration { font-size: 0.75rem; text-align: right; margin: 0; color: #fff; }
         .header .weekly_tit { display:block; width: 77%; text-align: center; margin: 0 auto; }
 
         .flyer-container { width: 90%; max-width: 1200px; position: relative;}
 
         .product-container { width: 100%; position: relative;}
 
+/* 프로모션 */
+.promotion-area {
+    width: 90vw;
+    max-width: 1200px;
+    margin: 2rem auto 10rem;
+    text-align: center;
+}
+.promotion-area img {
+    width: 100%;
+    height: auto;
+}
         /* 카테고리 섹션 */
         .category-section { width: 90%; max-width: 1200px; margin: 0 auto; }
         .category-title { 
@@ -35,32 +46,26 @@
             background: var(--main-blue); color: var(--main-yellow); padding: 8px 20px; font-size: 1.25rem; font-weight: bold; border-radius: 16px;  }
      
         /* 상품 그리드 */.product-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    background: #f9f9f9;
-    margin-bottom: 100px;
-    border-radius: 16px;
-    
-    width: 100%;
-    max-width: 100%; 
-    box-sizing: border-box;
-    
-
-    padding: 10px; 
-    overflow: hidden;
-}
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            background: #f9f9f9;
+            margin-bottom: 100px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding: 10px; 
+            overflow: hidden; }
 
         /* 상품 카드 */
         .card { padding: 12px; position: relative; text-align: center; display: flex; flex-direction: column; 
-    width: auto !important; 
-    min-width: 0;
-    box-sizing: border-box;}
-        
+            width: auto !important; min-width: 0;
+            box-sizing: border-box; }
 
-        .en-product-name { font-size: 1rem; font-weight: 700;}
-        .ko-product-name { font-size: 1rem; font-weight: 400; margin-top: 0.25rem;}
-        .weight { color : #666; font-size: 0.75rem; margin-top: 0.5rem;}
+        .en-product-name { font-size: 1rem; font-weight: 700; }
+        .ko-product-name { font-size: 1rem; font-weight: 400; margin-top: 0.25rem; }
+        .weight { color : #666; font-size: 0.75rem; margin-top: 0.5rem; }
 
         /* 할인율 딱지 */
         .discount-tag { 
@@ -69,13 +74,29 @@
             display: flex; align-items: center; gap: 1px; 
             background: var(--main-yellow); padding: 2px 8px; border-radius: 4px; 
             font-size: 1.75rem; font-weight: 800; 
-            box-shadow: 0 1px 2px #33333388; }
+            box-shadow: 0 1px 2px #33333388; z-index: 100; }
         .discount-tag-per-off { font-size: 1.2rem; text-align: left; }
-        .per, .off { margin: 0;}
-        .per { font-size: 1rem; margin-bottom: -2px;}
-        .off { font-size: 0.5rem;}
-        .product-img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; }
-        .price { color: var(--main-red); font-size: 1.8rem; font-weight: bold; margin-top: 0.5rem;}
+        .per, .off { margin: 0; }
+        .per { font-size: 1rem; margin-bottom: -2px; }
+        .off { font-size: 0.5rem; }
+        .product-img { width: 100%; height: 180px; margin-bottom: 8px; position: relative; }
+        .product-img img { width: 100%; height: 100%; object-fit: contain; }
+        .price { color: var(--main-red); font-size: 1.8rem; font-weight: bold; margin-top: 0.5rem; }
+
+
+        /* 기타 딱지 */
+        .note-tag { position: absolute;
+            bottom: 0; left : 12px;
+            display: flex; align-items: center;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            background: var(--main-red);  
+            color: #fff;  
+            z-index: 99;
+        }
+
 
         /* 유의사항 */
         .notice {
@@ -83,12 +104,14 @@
             margin: 0 auto;
             font-size: 0.75rem;
             text-align: center;
+            padding-bottom: 120px;
         }
 
         /* Media Screen */
         @media screen and (min-width: 960px) {
 
             /* header */
+            .header .logo { max-width: 148px; }
             .header .duration { font-size: 1rem; }
             .category-title {
                 font-size: 2rem;
@@ -102,6 +125,10 @@
         .discount-tag { 
             background: var(--main-yellow); padding: 2px 8px; border-radius: 10px; 
             font-size: 2.3rem; }
+
+        .category-title { top: calc(-1.25rem - 36px); }
+
+        .notice { font-size: 1rem; }
         }
     </style>
 </head>
@@ -109,23 +136,24 @@
 
 <div class="header">
     <div class="logo_duration">
-    <img src="https://hmartuk.synology.me/assets/general/logo.jpg" alt="H Mart Logo" class="logo">
+    <img src="https://hmartuk.synology.me/assets/general/logo_white.png" alt="H Mart Logo" class="logo">
     <p class="duration"></p> 
 </div>
-    <img src="https://hmartuk.synology.me/assets/promotion/weekly/weekly_tit.png" class="weekly_tit" alt="Weekly SALE">
+    <img src="weekly_tit.png" class="weekly_tit" alt="Weekly SALE">
 </div>
+<div id="top-promotion-area" class="promotion-area"></div>
 
 <div id="flyer-container" class="category-section">
     <p style="text-align: center;">세일 정보 도착 중...</p>
 </div>
 
 <div class="notice">
-    <p>While Stock last<br>The promotion may be modified or terminated early depending on circumstances.</p>
+    <p>While Stocks last.<br>The promotion may be modified or terminated early depending on circumstances.</p>
     <p>프로모션은 당사 및 매장 사정에 따라 사전 고지 없이 내용이 변경되거나 조기 종료될 수 있으며, 준비된 물량(예산) 소진 시 예고 없이 마감될 수 있습니다.</p>
 </div>
 
 <script>
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeRejK_0Fh99jSh5Il2xfGCTw9wUiM2EWhoxhlg5Ja9_oGlxeDmlJf4We6nCdUwt-AEcaNisLFgdYn/pub?gid=0&single=true&output=csv';
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNdLEebORD_6PE8kpAPY7kaT70CD9tGT_haBLg3ke0s-ABfvv0Mvk0ze4yCEX-CqUsIJzd_QviJbVU/pub?gid=0&single=true&output=csv';
 
     async function initFlyer() {
         try {
@@ -135,7 +163,6 @@
             Papa.parse(csvText, {
                 header: true,
                 complete: (results) => {
-                    // 여기서 모든 걸 한 번에 처리합니다!
                     renderPage(results.data);
                 }
             });
@@ -145,54 +172,61 @@
         }
     }
 
-    function renderPage(data) {
-        // --- 1. 날짜(Duration) 업데이트 부분 ---
-        const durationDisplay = document.querySelector('.duration');
-        if (data.length > 0 && data[0].duration) {
-            durationDisplay.innerHTML = `${data[0].duration}<br>While Stock last`;
-        }
-
-        // --- 2. 상품 영역 업데이트 부분 ---
-        const container = document.getElementById('flyer-container');
-        container.innerHTML = ''; // 로딩 문구 지우기
-
-        // 카테고리별로 데이터 묶기
-        const groups = data.reduce((acc, item) => {
-            if (!item.category) return acc;
-            if (!acc[item.category]) acc[item.category] = [];
-            acc[item.category].push(item);
-            return acc;
-        }, {});
-
-        // 각 카테고리별로 반복해서 화면에 그리기
-        for (const [category, products] of Object.entries(groups)) {
-            let categoryHtml = `
-                <div class="product-container">
-                    <div class="category-title">${category}</div>
-                    <div class="product-grid">
-                        ${products.map(p => `
-                            <div class="card">
-                                ${p.discount ? `<div class="discount-tag">${p.discount}<div class="discount-tag-per-off"><p class="per">%</p><p class="off">OFF</p></div></div>` : ''}
-                                <img class="product-img" src="${p.img_url}" onerror="this.src='https://via.placeholder.com/200x200?text=No+Image'">
-                                <div class="en-product-name">${p.en_name}</div>
-                                <div class="ko-product-name">${p.ko_name}</div>
-                                <div class="weight">${p.weight}</div>
-                                <div class="price">${p.price}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            container.innerHTML += categoryHtml;
-        }
+function renderPage(data) {
+    // --- 1. 날짜 업데이트 ---
+    const durationDisplay = document.querySelector('.duration');
+    if (data.length > 0 && data[0].duration) {
+        durationDisplay.innerHTML = `${data[0].duration}<br>While Stock last`;
     }
 
+    // --- 2. ★ 상단 프로모션 이미지 업데이트 ★ ---
+    const topPromoArea = document.getElementById('top-promotion-area');
+    // 데이터의 첫 번째 행에 promotion 이미지 주소가 있다면 노출
+    if (data.length > 0 && data[0].promotion) {
+        topPromoArea.innerHTML = `<img src="${data[0].promotion}" alt="Special Promotion">`;
+    } else {
+        topPromoArea.innerHTML = ''; // 없으면 비워둠
+    }
+
+    // --- 3. 상품 영역 업데이트 (기존과 동일) ---
+    const container = document.getElementById('flyer-container');
+    container.innerHTML = ''; 
+
+    const groups = data.reduce((acc, item) => {
+        if (!item.category) return acc;
+        if (!acc[item.category]) acc[item.category] = [];
+        acc[item.category].push(item);
+        return acc;
+    }, {});
+
+    for (const [category, products] of Object.entries(groups)) {
+        let categoryHtml = `
+            <div class="product-container">
+                <div class="category-title">${category}</div>
+                <div class="product-grid">
+                    ${products.map(p => `
+                        <div class="card">
+                            ${p.discount ? `<div class="discount-tag">${p.discount}<div class="discount-tag-per-off"><p class="per">%</p><p class="off">OFF</p></div></div>` : ''}
+                            ${p['buy-n-get-n'] ? `<div class="buy-n-get-n-tag"><span>${p['buy-n-get-n']}</span></div>` : ''}
+                            <div class="product-img">
+                                ${p.note ? `<div class="note-tag">${p.note}</div>` : ''}
+                                <img src="${p.img_url}" onerror="this.src='https://via.placeholder.com/200x200?text=No+Image'">
+                            </div>
+                            <div class="en-product-name">${p.en_name}</div>
+                            <div class="ko-product-name">${p.ko_name}</div>
+                            <div class="weight">${p.weight}</div>
+                            <div class="price">${p.price}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        container.innerHTML += categoryHtml;
+    }
+}
     // 페이지 시작!
     initFlyer();
 </script>
 
 </body>
 </html>
-
-
-
