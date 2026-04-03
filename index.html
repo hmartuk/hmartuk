@@ -5,23 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H Mart Weekly SALE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <!-- Google Tag Manager -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZSSJMFLNM"></script>
     <script>
-      (function(w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-          'gtm.start': new Date().getTime(),
-          event: 'gtm.js'
-        });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-NTT8WSKR');
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-HZSSJMFLNM');
     </script>
-    <!-- End Google Tag Manager -->
     <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
     <style>
       :root {
@@ -286,11 +280,6 @@
     </style>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NTT8WSKR" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <div class="header">
       <div class="logo_duration">
         <img src="https://hmartuk.synology.me/assets/general/logo_white.png" alt="H Mart Logo" class="logo">
@@ -356,12 +345,14 @@
         const durationDisplay = document.querySelector('.duration');
         if (displayData.length > 0 && displayData[0].duration) {
           durationDisplay.innerHTML = `${displayData[0].duration}
+									
 									<br>While Stock last`;
         }
         // --- 2. 상단 프로모션 이미지 업데이트 ---
         const topPromoArea = document.getElementById('top-promotion-area');
         if (displayData.length > 0 && displayData[0].promotion) {
           topPromoArea.innerHTML = `
+										
 										<img src="${displayData[0].promotion}" alt="Special Promotion">`;
         } else {
           topPromoArea.innerHTML = '';
@@ -378,28 +369,36 @@
         for (const [category, products] of Object.entries(groups)) {
           let categoryHtml = `
             
+											
 											<div class="product-container">
 												<div class="category-title">${category}</div>
 												<div class="product-grid">
                     ${products.map(p => `
                         
+													
 													<div class="card">
                             ${p.discount ? `
+														
 														<div class="discount-tag">${p.discount}
+															
 															<div class="discount-tag-per-off">
 																<p class="per">%</p>
 																<p class="off">OFF</p>
 															</div>
 														</div>` : ''}
                             ${p['buy-n-get-n'] ? `
+														
 														<div class="buy-n-get-n-tag">
 															<span>${p['buy-n-get-n']}</span>
 														</div>` : ''}
                             
+														
 														<div class="product-img">
                                 ${p.note ? `
+															
 															<div class="note-tag">${p.note}</div>` : ''}
                                 
+															
 															<img src="${p.img_url}" onerror="this.src='https://via.placeholder.com/200x200?text=No+Image'">
 															</div>
 															<div class="en-product-name">${p.en_name}</div>
@@ -409,6 +408,7 @@
 														</div>
                     `).join('')}
                 
+													
 													</div>
 												</div>
         `;
